@@ -4,54 +4,54 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
-    url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
   id        Int      @id @default(autoincrement())
-  name      String
-  mobile    String   @unique
+  email     String   @unique
   password  String
-  role      String   @default("CUSTOMER") // ADMIN, CUSTOMER
-  address   String?
+  name      String?
+  role      String   @default("USER") // USER, ADMIN
   orders    Order[]
   createdAt DateTime @default(now())
 }
 
 model Category {
-  id        Int       @id @default(autoincrement())
-  name      String    // Bangla Name
-  slug      String    @unique
-  image     String?
-  products  Product[]
+  id       Int       @id @default(autoincrement())
+  name     String
+  slug     String    @unique
+  image    String?
+  products Product[]
 }
 
 model Product {
   id          Int         @id @default(autoincrement())
-  title       String      // Bangla Title
+  title       String
   slug        String      @unique
   description String
   price       Float
-  discountPrice Float?
-  stock       Int         @default(0)
+  stock       Int
+  images      String      // Store array of strings as JSON string
   categoryId  Int
   category    Category    @relation(fields: [categoryId], references: [id])
-  images      String      // JSON string or comma separated
   orderItems  OrderItem[]
+  createdAt   DateTime    @default(now())
 }
 
 model Order {
-  id        Int         @id @default(autoincrement())
-  userId    Int?        // Optional for guest checkout
-  user      User?       @relation(fields: [userId], references: [id])
-  total     Float
-  status    String      @default("PENDING") // PENDING, PROCESSING, DELIVERED, CANCELLED
-  items     OrderItem[]
-  customerName    String?
-  customerMobile  String?
+  id              Int         @id @default(autoincrement())
+  userId          Int?        // Optional for guest checkout
+  user            User?       @relation(fields: [userId], references: [id])
+  total           Float
+  status          String      @default("PENDING") // PENDING, PROCESSING, DELIVERED, CANCELLED
+  items           OrderItem[]
   shippingAddress String
-  createdAt DateTime    @default(now())
+  customerName    String?     // For guest checkout
+  customerMobile  String?     // For guest checkout
+  createdAt       DateTime    @default(now())
 }
 
 model OrderItem {
@@ -66,9 +66,20 @@ model OrderItem {
 
 model Message {
   id        Int      @id @default(autoincrement())
-  content   String
-  sender    String   // Session ID or Mobile
-  isAdmin   Boolean  @default(false)
+  name      String
+  email     String
+  mobile    String?
+  subject   String
+  message   String
+  status    String   @default("UNREAD") // UNREAD, READ, REPLIED
   createdAt DateTime @default(now())
 }
 
+model Favorite {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  productId Int
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+}
