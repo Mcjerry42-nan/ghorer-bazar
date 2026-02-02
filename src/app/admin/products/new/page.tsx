@@ -13,7 +13,6 @@ export default function NewProductPage() {
         slug: '',
         description: '',
         price: '',
-        discountPrice: '',
         stock: '',
         categoryId: '',
         imageUrl: '',
@@ -42,7 +41,6 @@ export default function NewProductPage() {
                 body: JSON.stringify({
                     ...formData,
                     price: parseFloat(formData.price),
-                    discountPrice: formData.discountPrice ? parseFloat(formData.discountPrice) : null,
                     stock: parseInt(formData.stock),
                     images: JSON.stringify([formData.imageUrl]),
                 }),
@@ -108,7 +106,7 @@ export default function NewProductPage() {
                         />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-2">মূল্য (Price) *</label>
                             <input
@@ -118,16 +116,6 @@ export default function NewProductPage() {
                                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                                 className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition"
                                 placeholder="৩৪০"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-bold text-gray-700 mb-2">ছাড়ের মূল্য (Discount Price)</label>
-                            <input
-                                type="number"
-                                value={formData.discountPrice}
-                                onChange={(e) => setFormData({ ...formData, discountPrice: e.target.value })}
-                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition"
-                                placeholder="৩০০"
                             />
                         </div>
                         <div>

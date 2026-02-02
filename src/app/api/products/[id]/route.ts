@@ -34,7 +34,6 @@ export async function PUT(
                 slug: body.slug,
                 description: body.description,
                 price: parseFloat(body.price.toString()),
-                discountPrice: body.discountPrice ? parseFloat(body.discountPrice.toString()) : null,
                 stock: parseInt(body.stock.toString()) || 0,
                 categoryId: parseInt(body.categoryId.toString()),
                 images: body.images,
