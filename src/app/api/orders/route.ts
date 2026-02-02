@@ -8,25 +8,29 @@ export async function POST(req: Request) {
 
         const order = await prisma.order.create({
             data: {
-                userId,
-                total,
+                userId: userId ? parseInt(userId.toString()) : null,
+                total: parseFloat(total.toString()),
                 customerName: contactName,
                 customerMobile: contactMobile,
                 shippingAddress: shippingAddress,
                 status: 'PENDING',
                 items: {
                     create: items.map((item: any) => ({
-                        productId: item.id,
-                        quantity: item.quantity,
-                        price: item.price,
+                        productId: parseInt(item.id.toString()),
+                        quantity: parseInt(item.quantity.toString()),
+                        price: parseFloat(item.price.toString()),
                     })),
                 },
             },
         })
 
         return NextResponse.json(order)
-    } catch (error) {
-        console.error('Order creation error:', error)
-        return NextResponse.json({ error: 'Order creation failed' }, { status: 500 })
+    } catch (error: any) {
+        console.error('CRITICAL: Order creation failed!', error)
+        return NextResponse.json({
+            error: 'Order creation failed',
+            details: error.message,
+            stack: error.stack
+        }, { status: 500 })
     }
 }

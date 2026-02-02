@@ -53,12 +53,15 @@ export default function CheckoutPage() {
                 window.scrollTo(0, 0)
                 router.push('/order-success')
             } else {
+                const errorData = await res.json()
                 setIsSubmitting(false)
-                alert('অর্ডার করতে সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।')
+                alert(`অর্ডার করতে সমস্যা হয়েছে: ${errorData.details || errorData.error || 'অজানা এরর'}`)
+                console.error('Order Error:', errorData)
             }
-        } catch (error) {
+        } catch (error: any) {
             setIsSubmitting(false)
-            alert('একটি এরর হয়েছে।')
+            alert(`একটি এরর হয়েছে: ${error.message}`)
+            console.error('Submit Error:', error)
         } finally {
             setLoading(false)
         }
