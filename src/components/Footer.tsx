@@ -83,8 +83,8 @@ export default async function Footer() {
                 <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 font-medium">
                     <p>&copy; ২০২৬ ঘরের বাজার। সর্বস্বত্ব সংরক্ষিত।</p>
                     <div className="flex gap-6 text-sm">
-                        <Link href="/privacy" className="hover:text-white transition-colors">প্রাইভেসি পলিসি</Link>
-                        <Link href="/terms" className="hover:text-white transition-colors">শর্তাবলী</Link>
+                        <Link href="/about#privacy" className="hover:text-white transition-colors">প্রাইভেসি পলিসি</Link>
+                        <Link href="/about#terms" className="hover:text-white transition-colors">শর্তাবলী</Link>
                     </div>
                 </div>
             </div>
