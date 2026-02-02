@@ -75,6 +75,14 @@ model Message {
   createdAt DateTime @default(now())
 }
 
+model ChatMessage {
+  id        Int      @id @default(autoincrement())
+  content   String
+  sender    String
+  isAdmin   Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
 model Favorite {
   id        Int      @id @default(autoincrement())
   userId    Int

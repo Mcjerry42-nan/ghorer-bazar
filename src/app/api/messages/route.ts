@@ -6,14 +6,7 @@ export async function GET(req: Request) {
     const sender = searchParams.get('sender')
 
     try {
-        const client = prisma as any
-        if (!client.message) {
-            return NextResponse.json({
-                error: 'Server configuration error',
-                details: 'Database model "message" is not available.'
-            }, { status: 500 })
-        }
-        const messages = await client.message.findMany({
+        const messages = await prisma.chatMessage.findMany({
             where: sender ? { sender } : {},
             orderBy: { createdAt: 'asc' },
         })
@@ -30,13 +23,8 @@ export async function POST(req: Request) {
     try {
         const body = await req.json()
         const { content, sender, isAdmin } = body
-        const client = prisma as any
 
-        if (!client.message) {
-            return NextResponse.json({ error: 'Server configuration error' }, { status: 500 })
-        }
-
-        const message = await client.message.create({
+        const message = await prisma.chatMessage.create({
             data: {
                 content,
                 sender: sender || 'admin',
