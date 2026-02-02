@@ -8,7 +8,6 @@ interface ProductCardProps {
     id: number
     title: string
     price: number
-    discountPrice?: number | null
     images: string
     slug: string
 }
@@ -17,7 +16,6 @@ export default function ProductCard({
     id,
     title,
     price,
-    discountPrice,
     images,
     slug,
 }: ProductCardProps) {
@@ -48,13 +46,11 @@ export default function ProductCard({
         addToCart({
             id,
             title,
-            price: discountPrice || price,
+            price: price,
             image: imageUrl,
             quantity: 1,
         })
     }
-
-    const finalPrice = discountPrice || price
 
     return (
         <div className="group bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col">
@@ -64,11 +60,6 @@ export default function ProductCard({
                     alt={title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                {discountPrice && (
-                    <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-black shadow-lg">
-                        -{Math.round(((price - discountPrice) / price) * 100)}% ছাড়
-                    </div>
-                )}
                 <button
                     onClick={handleFavorite}
                     className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all bg-white/90 backdrop-blur-sm shadow-md hover:scale-110 active:scale-95 ${isFavorite ? 'text-red-500 scale-110' : 'text-gray-400 hover:text-red-500'
@@ -87,11 +78,8 @@ export default function ProductCard({
                     </Link>
                     <div className="flex items-center gap-3 mb-4">
                         <span className="text-2xl font-black text-primary">
-                            ৳{finalPrice}
+                            ৳{price}
                         </span>
-                        {discountPrice && (
-                            <span className="text-gray-400 line-through text-sm">৳{price}</span>
-                        )}
                     </div>
                 </div>
 

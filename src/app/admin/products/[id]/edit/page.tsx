@@ -15,7 +15,6 @@ export default function EditProductPage() {
         slug: '',
         description: '',
         price: '',
-        discountPrice: '',
         stock: '',
         categoryId: '',
         imageUrl: '',
@@ -49,7 +48,6 @@ export default function EditProductPage() {
                     slug: prodData.slug || '',
                     description: prodData.description || '',
                     price: (prodData.price ?? '').toString(),
-                    discountPrice: (prodData.discountPrice ?? '').toString(),
                     stock: (prodData.stock ?? '0').toString(),
                     categoryId: (prodData.categoryId ?? '').toString(),
                     imageUrl: imageUrl,
@@ -74,7 +72,6 @@ export default function EditProductPage() {
                 body: JSON.stringify({
                     ...formData,
                     price: parseFloat(formData.price),
-                    discountPrice: formData.discountPrice ? parseFloat(formData.discountPrice) : null,
                     stock: parseInt(formData.stock),
                     images: JSON.stringify([formData.imageUrl]),
                     categoryId: parseInt(formData.categoryId)
@@ -140,7 +137,7 @@ export default function EditProductPage() {
                         />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label className="block text-sm font-bold text-gray-700 mb-2">মূল্য (Price) *</label>
                             <input
@@ -148,15 +145,6 @@ export default function EditProductPage() {
                                 required
                                 value={formData.price}
                                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-bold text-gray-700 mb-2">ছাড়ের মূল্য (Discount Price)</label>
-                            <input
-                                type="number"
-                                value={formData.discountPrice}
-                                onChange={(e) => setFormData({ ...formData, discountPrice: e.target.value })}
                                 className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition"
                             />
                         </div>

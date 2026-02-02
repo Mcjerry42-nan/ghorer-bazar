@@ -28,7 +28,6 @@ export default async function ProductDetailPage({
     } catch (e) {
         console.error('Error parsing product images:', e)
     }
-    const finalPrice = product.discountPrice || product.price
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -52,25 +51,8 @@ export default async function ProductDetailPage({
 
                     <h1 className="text-3xl font-bold mb-4">{product.title}</h1>
 
-                    <div className="flex items-center gap-4 mb-6">
-                        {product.discountPrice && (
-                            <>
-                                <span className="text-gray-400 line-through text-xl">
-                                    ৳{product.price}
-                                </span>
-                                <span className="bg-red-500 text-white px-3 py-1 rounded-md text-sm font-semibold">
-                                    {Math.round(
-                                        ((product.price - product.discountPrice) / product.price) *
-                                        100
-                                    )}
-                                    % ছাড়
-                                </span>
-                            </>
-                        )}
-                    </div>
-
                     <div className="text-4xl font-bold text-primary mb-6">
-                        ৳{finalPrice}
+                        ৳{product.price}
                     </div>
 
                     <p className="text-gray-700 mb-6">{product.description}</p>
@@ -90,7 +72,7 @@ export default async function ProductDetailPage({
                         product={{
                             id: product.id,
                             title: product.title,
-                            price: finalPrice,
+                            price: product.price,
                             image: productImages[0]
                         }}
                     />
