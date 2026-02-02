@@ -16,7 +16,7 @@ export default async function HomePage() {
     <div className="flex-1 overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative bg-primary text-white overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1558583055-d7ac00b1adca?auto=format&fit=crop&q=80')] opacity-20 bg-cover bg-center"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80')] opacity-30 bg-cover bg-center"></div>
         <div className="container relative py-24 md:py-32 text-center animate-fade-in">
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">
             ঘরের বাজার
