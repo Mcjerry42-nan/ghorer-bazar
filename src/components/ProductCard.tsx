@@ -37,7 +37,6 @@ export default function ProductCard({
         e.preventDefault()
         e.stopPropagation()
         toggleFavorite(id)
-        router.push('/favorites')
     }
 
     const handleAddToCart = (e: React.MouseEvent) => {

@@ -6,8 +6,9 @@ import { useCart } from '@/context/cart-context'
 
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-    const { cart } = useCart()
+    const { cart, favorites } = useCart()
     const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0)
+    const favoriteCount = favorites.length
 
     return (
         <header className="bg-white shadow-md sticky top-0 z-50">
@@ -42,6 +43,7 @@ export default function Header() {
                         <Link
                             href="/cart"
                             className="relative hover:text-primary transition"
+                            title="কার্ট"
                         >
                             <svg
                                 className="w-6 h-6"
@@ -57,8 +59,33 @@ export default function Header() {
                                 />
                             </svg>
                             {cartCount > 0 && (
-                                <span className="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                <span className="absolute -top-2 -right-2 bg-primary text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                                     {cartCount}
+                                </span>
+                            )}
+                        </Link>
+
+                        <Link
+                            href="/favorites"
+                            className="relative hover:text-primary transition"
+                            title="পছন্দের তালিকা"
+                        >
+                            <svg
+                                className="w-6 h-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                />
+                            </svg>
+                            {favoriteCount > 0 && (
+                                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                                    {favoriteCount}
                                 </span>
                             )}
                         </Link>
